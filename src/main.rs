@@ -50,15 +50,19 @@ fn main() -> Result<(), Box<dyn Error>> {
         let fully_researched = count >= research_item.amount.as_i32();
         unresearched_items += usize::from(!fully_researched);
         if (fully_researched && args.complete) || (!fully_researched && args.missing) {
-            println!(
-                "{:47} ({}, {:47}) {:3}/{:3} {:80}",
-                research_item.name,
-                research_item.id,
-                item_name,
-                count,
-                research_item.amount,
-                research_item.url.trim()
-            );
+            if args.names_only {
+                println!("{:47}", research_item.name,);
+            } else {
+                println!(
+                    "{:47} ({}, {:47}) {:3}/{:3} {:80}",
+                    research_item.name,
+                    research_item.id,
+                    item_name,
+                    count,
+                    research_item.amount,
+                    research_item.url.trim()
+                );
+            }
         }
     }
     println!("Total missing: {unresearched_items}/{total_research_items}");

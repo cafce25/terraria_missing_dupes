@@ -21,6 +21,9 @@ struct ArgsInternal {
     #[arg(short = 'C', long = "no-complete")]
     #[doc(hidden)]
     _no_complete: bool,
+    /// Show only the names of the items
+    #[arg(short = 'o', long = "names-only")]
+    names_only: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -31,6 +34,8 @@ pub struct Args {
     pub missing: bool,
     /// Show items which are fully researched
     pub complete: bool,
+    /// Show only the names of the items
+    pub names_only: bool,
 }
 
 impl Parser for Args {}
@@ -62,6 +67,7 @@ impl From<ArgsInternal> for Args {
             player_name,
             missing,
             complete,
+            names_only,
             ..
         }: ArgsInternal,
     ) -> Self {
@@ -69,6 +75,7 @@ impl From<ArgsInternal> for Args {
             player_name,
             missing,
             complete,
+            names_only,
         }
     }
 }
@@ -79,6 +86,7 @@ impl From<Args> for ArgsInternal {
             player_name,
             missing,
             complete,
+            names_only,
             ..
         }: Args,
     ) -> Self {
@@ -86,6 +94,7 @@ impl From<Args> for ArgsInternal {
             player_name,
             missing,
             complete,
+            names_only,
             ..Default::default()
         }
     }
